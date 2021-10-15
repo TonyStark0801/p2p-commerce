@@ -35,10 +35,11 @@ function Products(props) {
         <div className="container__middle-column">
           <p className="middle-column__product-heading"> Boat Headphones </p>
           <div className="middle-column__product-rating">
-            <span class="fa fa-star checked"> </span>
-            <span class="fa fa-star checked"> </span>
-            <span class="fa fa-star checked"> </span>
-            <span class="fa fa-star"> </span> <span class="fa fa-star"> </span>
+            <span className="fa fa-star checked"> </span>
+            <span className="fa fa-star checked"> </span>
+            <span className="fa fa-star checked"> </span>
+            <span className="fa fa-star"> </span>
+            <span className="fa fa-star"> </span>
           </div>
           <p className="middle-column__product-price">
             <small className="product-price__small"> Price: </small>

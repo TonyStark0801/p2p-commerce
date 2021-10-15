@@ -14,7 +14,7 @@ function Header() {
             placeholder="Search"
           />
           <button className="searchbox__button" type="button">
-            <i class="fa fa-search"> </i>
+            <i className="fa fa-search"> </i>
           </button>
         </div>
         <div className="header__content">

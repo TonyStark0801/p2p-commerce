@@ -1,106 +1,106 @@
 :root {
-  --themeColor: #001c38;
-  --buttonColor: linear-gradient(#64b2ee, #117dd4);
-  --buttonOnHoverColor: linear-gradient(#3a80b6, #1f9aff);
-  --button-border: #07c;
+    --themeColor: #001c38;
+    --buttonColor: linear-gradient(#64b2ee, #117dd4);
+    --buttonOnHoverColor: linear-gradient(#3a80b6, #1f9aff);
+    --button-border: #07c;
 }
 
 header {
-  height: 75px;
-  font-family: "Poppins";
-  background-color: var(--themeColor);
+    height: 75px;
+    font-family: "Poppins";
+    background-color: var(--themeColor);
 }
 
 .header {
-  max-width: 1200px;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .header__logo {
-  margin-left: -50px;
-  cursor: pointer;
-  width: 170px;
+    margin-left: -50px;
+    cursor: pointer;
+    width: 170px;
 }
 
 .header__searchbox {
-  width: 45%;
+    width: 45%;
 }
 
 .searchbox__search {
-  width: 93%;
-  padding: 6px;
-  color: white;
-  border: 2px solid white;
-  background-color: rgba(222, 222, 222, 0);
+    width: 93%;
+    padding: 6px;
+    color: white;
+    border: 2px solid white;
+    background-color: rgba(222, 222, 222, 0);
 }
 
 .searchbox__search::placeholder {
-  color: white;
+    color: white;
 }
 
 .searchbox__search:focus {
-  background-color: rgba(222, 222, 222, 0);
-  border: 2px solid rgba(222, 222, 222, 0);
+    background-color: rgba(222, 222, 222, 0);
+    border: 2px solid rgba(222, 222, 222, 0);
 }
 
 .searchbox__button {
-  float: right;
-  padding: 7px 10px;
-  background: #117dd4;
-  font-size: 17px;
-  border: none;
-  color: white;
-  cursor: pointer;
+    float: right;
+    padding: 7px 10px;
+    background: #117dd4;
+    font-size: 17px;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.searchbox__button:hover {
+    background: #0159a1;
 }
 
 .header__content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .header__rent {
-  font-size: 1em;
-  color: rgb(255, 255, 255);
-  font-weight: 600;
-  font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons",
-    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  cursor: pointer;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    cursor: pointer;
 }
 
 .header__rent:hover {
-  color: rgb(209, 209, 209);
+    color: rgb(209, 209, 209);
 }
 
 .header__login-button {
-  font-size: 17px;
-  line-height: 1.3;
-  font-weight: 600;
-  letter-spacing: -0.021em;
-  font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons",
-    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 7px;
-  padding-bottom: 8px;
-  margin-left: 40px;
-  cursor: pointer;
-  background: var(--buttonColor);
-  border-color: var(--button-border);
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  color: #fff;
+    font-size: 17px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.021em;
+    font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    margin-left: 40px;
+    cursor: pointer;
+    background: var(--buttonColor);
+    border-color: var(--button-border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    color: #fff;
 }
 
 .header__login-button:hover {
-  background: var(--buttonOnHoverColor);
+    background: var(--buttonOnHoverColor);
 }
