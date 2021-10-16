@@ -1,18 +1,18 @@
 import express from "express";
 import cors from "cors";
 import mysql2 from "mysql2";
-import fileUpload from "express-fileupload";
-
+import multer from "multer";
+import path from "path";
+const __dirname = path.resolve();
+//Middlewares
 const app = express();
 app.use(cors());
+app.use("/", express.static(path.join(__dirname, "/")));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-    fileUpload({
-        createParentPath: true,
-    })
-);
 
+//Database connection
 const db = mysql2.createConnection({
     host: "localhost",
     user: "root",
@@ -20,21 +20,70 @@ const db = mysql2.createConnection({
     database: "p2pCommerce",
 });
 
-app.post("/upload", (req, res) => {
-    const name = req.body.name;
-    const price = req.body.price;
-    const image = req.body.image;
-
-    const sqlInsert = "INSERT INTO upload (name, price, image) VALUES (?, ?, ?)";
-    db.query(sqlInsert, [name, price, image], (err, result) => {
-        res.send(result);
-        console.log(err);
-    });
-});
-
 db.connect((err) => {
     if (err) console.log(err);
     else console.log("DB connected!");
+});
+
+//Using multer to save images on the server
+const storage = multer.diskStorage({
+    destination: (req, file, callBack) => {
+        callBack(null, "./public/images/");
+    },
+    filename: (req, file, callBack) => {
+        const ext = file.mimetype.split("/")[1];
+        callBack(null, `${Date.now()}.${ext}`);
+    },
+});
+
+const upload = multer({
+    storage: storage,
+});
+
+//Image upload
+app.post("/upload", upload.single("image"), (req, res, err) => {
+    if (!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        res.send({ msg: "Only image files (jpg, jpeg, png) are allowed!" });
+    } else {
+        const name = req.body.name;
+        const price = req.body.price;
+        const image = req.file.filename;
+        const sqlInsert =
+            "INSERT INTO upload (name, price, image) VALUES (?, ?, ?)";
+        db.query(sqlInsert, [name, price, image], (error, result) => {
+            if (error) {
+                console.log(error);
+                res.send({
+                    msg: error,
+                });
+            }
+            if (result) {
+                res.send({
+                    data: result,
+                    msg: "Your image has been inserted!",
+                });
+            }
+        });
+    }
+});
+
+app.get("/upload", (req, res) => {
+    const id = 7;
+    const sqlSelect = "SELECT * FROM upload WHERE id = ?";
+    db.query(sqlSelect, [id], (error, result) => {
+        if (error) {
+            console.log(error);
+            res.send({
+                msg: error,
+            });
+        }
+        if (result) {
+            console.log(result);
+            res.send({
+                image: result[0].image,
+            });
+        }
+    });
 });
 
 app.listen(5000);

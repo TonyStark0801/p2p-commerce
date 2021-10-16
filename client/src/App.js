@@ -14,13 +14,13 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <Header />
       <div className="App">
+        <Header />
         <Route path="/" exact component={Home} />
         <Route path="/products" exact component={Products} />
         <Route path="/upload" exact component={Upload} />
+        <Footer />
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }

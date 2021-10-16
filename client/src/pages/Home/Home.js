@@ -100,7 +100,7 @@ function Card({ id, image, name, price }) {
             Rs
           </div>
           <div className="content__button">
-            <a href={`/product/${id}`}> View </a>
+            <a href={`/product/${id}`}> Add to cart </a>
           </div>
         </div>
       </div>
