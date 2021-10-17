@@ -5,7 +5,7 @@ import { data } from "../../data";
 import "./Products.css";
 
 function Products(props) {
-  var x = data[0].products[0].price;
+  var product = data.products.find();
   //   console.log(props);
   var product = data.find((el) => el.category == props.match.params.category);
 
@@ -43,7 +43,7 @@ function Products(props) {
           </div>
           <p className="middle-column__product-price">
             <small className="product-price__small"> Price: </small>
-            <strong className="product-price__strong"> {x} RS</strong>
+            <strong className="product-price__strong"> 1200 RS</strong>
           </p>
           <div className="middle-column__availability"> In stock </div>
           <p className="middle-column__product-description">

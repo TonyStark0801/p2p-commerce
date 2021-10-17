@@ -1,16 +1,16 @@
 import express from "express";
+import fileUpload from "express-fileupload";
 import cors from "cors";
 import mysql2 from "mysql2";
-import multer from "multer";
-import path from "path";
-const __dirname = path.resolve();
+
+const __dirname = "D:\\etc\\p2p commerce";
+
 //Middlewares
 const app = express();
 app.use(cors());
-app.use("/", express.static(path.join(__dirname, "/")));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
 
 //Database connection
 const db = mysql2.createConnection({
@@ -25,65 +25,43 @@ db.connect((err) => {
     else console.log("DB connected!");
 });
 
-//Using multer to save images on the server
-const storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        callBack(null, "./public/images/");
-    },
-    filename: (req, file, callBack) => {
-        const ext = file.mimetype.split("/")[1];
-        callBack(null, `${Date.now()}.${ext}`);
-    },
-});
-
-const upload = multer({
-    storage: storage,
-});
-
 //Image upload
-app.post("/upload", upload.single("image"), (req, res, err) => {
-    if (!req.file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
-        res.send({ msg: "Only image files (jpg, jpeg, png) are allowed!" });
-    } else {
-        const name = req.body.name;
-        const price = req.body.price;
-        const image = req.file.filename;
-        const sqlInsert =
-            "INSERT INTO upload (name, price, image) VALUES (?, ?, ?)";
-        db.query(sqlInsert, [name, price, image], (error, result) => {
-            if (error) {
-                console.log(error);
-                res.send({
-                    msg: error,
-                });
-            }
-            if (result) {
-                res.send({
-                    data: result,
-                    msg: "Your image has been inserted!",
-                });
-            }
-        });
+app.post("/upload", (req, res) => {
+    if (req.files === null) {
+        return res.status(400).json({ msg: "No file uploaded" });
     }
-});
-
-app.get("/upload", (req, res) => {
-    const id = 7;
-    const sqlSelect = "SELECT * FROM upload WHERE id = ?";
-    db.query(sqlSelect, [id], (error, result) => {
+    const file = req.files.file;
+    const ext = file.mimetype.split("/")[1];
+    const name = req.body.name;
+    const price = req.body.price;
+    const path = "/uploadedImages/" + Date.now() + "." + ext;
+    file.mv(`${__dirname}/client/public/${path}`, (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send(err);
+        }
+        return res.json({
+            name: name,
+            price: price,
+            filePath: `${path}`,
+        });
+    });
+    const sqlInsert =
+        "INSERT INTO uploads (name, price, imagePath) VALUES (?, ?, ?)";
+    db.query(sqlInsert, [name, price, path], (error, result) => {
         if (error) {
             console.log(error);
-            res.send({
+            return res.send({
                 msg: error,
             });
         }
         if (result) {
-            console.log(result);
-            res.send({
-                image: result[0].image,
+            return res.send({
+                data: result,
+                msg: "Your image has been inserted!",
             });
         }
     });
 });
 
-app.listen(5000);
+app.listen(5000, () => console.log("Server Started..."));

@@ -1,76 +1,153 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
+import "./Upload.css";
 
 function Upload() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const [uploadStatus, setUploadStatus] = useState("");
-  // const sendData = () => {
-  //   axios
-  //     .post("http://localhost:5000/upload", {
-  //       name: name,
-  //       price: price,
-  //       image: image,
-  //     })
-  //     .then((err, res) => {
-  //       console.log(err);
-  //       alert("succesful entry!");
-  //     });
-  // };
-  axios.get("http://localhost:5000/upload").then((data) => {
-    console.log(data);
-    setImage("http://localhost:5000/public/images/" + data.data.image);
-    console.log(image);
+  const [uploadedFile, setUploadedFile] = useState({
+    name: "Product Name",
+    price: "$$$",
+    filePath:
+      "https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg",
   });
-  const imageHandler = (e) => {
-    const file = e.target.files[0];
+
+  useEffect(() => {}, [uploadedFile]);
+
+  const imageHandler = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
-    formData.append("image", file);
+    formData.append("file", image);
 
-    axios.post("http://localhost:5000/upload", formData).then((err, res) => {
-      console.log(err);
-      alert("succesful entry!");
-    });
+    try {
+      const res = await axios.post("http://localhost:5000/upload", formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
+      const { name, price, filePath } = res.data;
+      console.log(uploadedFile);
+      setUploadedFile({ name, price, filePath });
+      alert("Successful Entry!");
+    } catch (err) {
+      // if (err.response.status == 500) {
+      //   alert("There was a problem with the server");
+      // } else {
+      //   alert(err.response.data.msg);
+      // }
+      alert(err);
+    }
   };
-
   return (
     <>
-      <form>
-        <h2> {uploadStatus} </h2>
-        <label>Name: </label>
+      <div className="container">
+        <h1 className="heading">&bull; Rent anything anywhere! &bull;</h1>
+        <div className="underline"> </div>
+        <form onSubmit={imageHandler}>
+          <div className="text-input">
+            <div className="name">
+              <input
+                type="text"
+                placeholder="Product name"
+                className="name__input"
+                name="name"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="price">
+              <input
+                type="text"
+                name="price"
+                placeholder="Product Price"
+                className="price__input"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
 
-        <input
-          type="text"
-          name="name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <br />
-        <label>Price: </label>
+          <div className="image">
+            <button className="image__btn">Upload a file</button>
+            <input
+              className="image__input"
+              type="file"
+              name="myfile"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </div>
 
-        <input
-          type="text"
-          name="price"
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <br />
-        <label>Image: </label>
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          onChange={imageHandler}
-          multiple={false}
-        />
-        <br />
-        <button>Submit</button>
-      </form>
-      <h1>{uploadStatus}</h1>
-      <img src={image} />
+          <div className="submit">
+            <input type="submit" value="Upload Item" id="form_button" />
+          </div>
+        </form>
+      </div>
+
+      {uploadedFile ? <UploadedItem uploadedFile={uploadedFile} /> : null}
+    </>
+  );
+}
+
+function UploadedItem(props) {
+  return (
+    <>
+      <div className="wrap">
+        <img className="wrap__image" src={props.uploadedFile.filePath} alt="" />
+        <div className="wrap__content">
+          <h1 className="wrap__content__name">{props.uploadedFile.name}</h1>
+          <p className="wrap__content__price">
+            Price: {props.uploadedFile.price} Rs
+          </p>
+          <p className="wrap__content__description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
+            culpa, autem et iste aspernatur praesentium laborum non reiciendis
+            at hic maiores asperiores repudiandae eligendi, adipisci esse
+            exercitationem atque necessitatibus distinctio.
+          </p>
+        </div>
+      </div>
     </>
   );
 }
 
 export default Upload;
+{
+  /* <div id="container">
+  <h1>&bull; Keep in Touch &bull;</h1>
+  <div class="underline">
+  </div>
+  <div class="icon_wrapper">
+  </div>
+<form action="#" method="post" id="contact_form">
+    <div class="name">
+      <label for="name"></label>
+      <input type="text" placeholder="My name is" name="name" id="name_input" required>
+    </div>
+    <div class="email">
+      <label for="email"></label>
+      <input type="email" placeholder="My e-mail is" name="email" id="email_input" required>
+    </div>
+    <div class="telephone">
+      <label for="name"></label>
+      <input type="text" placeholder="My number is" name="telephone" id="telephone_input" required>
+    </div>
+    <div class="subject">
+      <label for="subject"></label>
+      <select placeholder="Subject line" name="subject" id="subject_input" required>
+        <option disabled hidden selected>Subject line</option>
+        <option>I'd like to start a project</option>
+        <option>I'd like to ask a question</option>
+        <option>I'd like to make a proposal</option>
+      </select>
+    </div>
+    <div class="message">
+      <label for="message"></label>
+      <textarea name="message" placeholder="I'd like to chat about" id="message_input" cols="30" rows="5" required></textarea>
+    </div>
+    <div class="submit">
+      <input type="submit" value="Send Message" id="form_button" />
+    </div>
+  </form><!-- // End form -->
+</div><!-- // End #container --> */
+}
