@@ -10,10 +10,7 @@ env.config();
 
 //Database connection
 mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(url)
   .then(() => {
     console.log("Database Connected");
   })
