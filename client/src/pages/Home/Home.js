@@ -1,7 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-import Header from "../../Components/Header/Header.js";
-import Footer from "../../Components/Footer/Footer.js";
 import { data, cities } from "../../data";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
 import "./Home.css";
