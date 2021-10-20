@@ -5,35 +5,22 @@ import { data } from "../../data";
 import "./Products.css";
 
 function Products(props) {
-  var product = data.products.find();
-  //   console.log(props);
-  var product = data.find((el) => el.category == props.match.params.category);
-
-  //   console.log(data.map((el) => el.products.map((el) => el)));
-  //   console.log(data.map((el) => el.products.find((val) => val._id == 4)));
-
-  // data.find((el) =>
-  // el.products.find((val) => val._id == props.match.params.id)
-
-  //   .find((val) => val._id == props.match.params.id)
-  // )
-  //   );
-  // Object.entries(data).forEach((val) => console.log(val));
-  //   if (!product) {
-  //     return <div>Product not found</div>;
-  //   }
+  var product = data.find((el) => el._id == props.match.params.id);
+  if (!product) {
+    return <div>Product Not Found</div>;
+  }
   return (
     <>
       <div className="container">
         <div className="container__left-column">
           <img
             className="left-column__image"
-            src="/img/sliders/headphones.jpeg"
-            alt="Boat headphones"
+            src={product.image}
+            alt={product.name}
           />
         </div>
         <div className="container__middle-column">
-          <p className="middle-column__product-heading"> Boat Headphones </p>
+          <p className="middle-column__product-heading"> {product.name} </p>
           <div className="middle-column__product-rating">
             <span className="fa fa-star checked"> </span>
             <span className="fa fa-star checked"> </span>
@@ -43,7 +30,9 @@ function Products(props) {
           </div>
           <p className="middle-column__product-price">
             <small className="product-price__small"> Price: </small>
-            <strong className="product-price__strong"> 1200 RS</strong>
+            <strong className="product-price__strong">
+              {product.price} RS
+            </strong>
           </p>
           <div className="middle-column__availability"> In stock </div>
           <p className="middle-column__product-description">
@@ -57,7 +46,9 @@ function Products(props) {
           <div className="right-column__card">
             <p className="card__total-price">
               <small className="total-price__small"> Total price: </small>
-              <strong className="total-price__strong"> 1200 Rs </strong>
+              <strong className="total-price__strong">
+                {product.price} Rs
+              </strong>
             </p>
             <p className="card__quantity">
               <small className="quantity__small"> Quantity: </small>

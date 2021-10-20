@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import logo from "../../logo.svg";
 import "./Header.css";
 
@@ -6,7 +7,9 @@ function Header() {
   return (
     <header>
       <div className="header">
-        <img className="header__logo" src={logo} alt="" />
+        <Link to="/">
+          <img className="header__logo" src={logo} alt="" />
+        </Link>
         <div className="header__searchbox">
           <input
             className="searchbox__search"

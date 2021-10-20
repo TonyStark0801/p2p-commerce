@@ -6,7 +6,7 @@
     --button-border: #07c;
 }
 
-.container {
+.contain {
     border: solid 3px var(--themeColor);
     display: flex;
     flex-direction: column;
@@ -49,7 +49,8 @@ form {
 }
 
 .name__input,
-.price__input {
+.price__input,
+.dropdown__input {
     background: none;
     border: none;
     border-bottom: solid 2px var(--themeColor);
@@ -70,6 +71,15 @@ form {
     padding: 0 0 0.875em 0;
 }
 
+.dropdown__input {
+    background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png") no-repeat right;
+    outline: none;
+}
+
+.dropdown__input::-ms-expand {
+    display: none;
+}
+
 .name {
     float: left;
     width: 45%;
@@ -77,6 +87,10 @@ form {
 
 .price {
     width: 45%;
+}
+
+.dropdown {
+    width: 100%;
 }
 
 .submit {

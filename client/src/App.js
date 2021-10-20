@@ -17,7 +17,7 @@ function App() {
       <div className="App">
         <Header />
         <Route path="/" exact component={Home} />
-        <Route path="/products" exact component={Products} />
+        <Route path="/products/:id" exact component={Products} />
         <Route path="/upload" exact component={Upload} />
         <Footer />
       </div>

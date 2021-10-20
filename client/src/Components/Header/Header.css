@@ -45,7 +45,7 @@ header {
 
 .searchbox__search:focus {
     background-color: rgba(222, 222, 222, 0);
-    border: 2px solid rgba(222, 222, 222, 0);
+    outline: none;
 }
 
 .searchbox__button {

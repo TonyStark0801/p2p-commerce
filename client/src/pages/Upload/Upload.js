@@ -43,7 +43,7 @@ function Upload() {
   };
   return (
     <>
-      <div className="container">
+      <div className="contain">
         <h1 className="heading">&bull; Rent anything anywhere! &bull;</h1>
         <div className="underline"> </div>
         <form onSubmit={imageHandler}>
@@ -66,6 +66,21 @@ function Upload() {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
+          </div>
+          <div class="dropdown">
+            <select
+              placeholder="Choose product category"
+              name="dropdown"
+              className="dropdown__input"
+              required
+            >
+              <option disabled hidden selected>
+                Choose product category
+              </option>
+              <option>I'd like to start a project</option>
+              <option>I'd like to ask a question</option>
+              <option>I'd like to make a proposal</option>
+            </select>
           </div>
 
           <div className="image">
