@@ -1,10 +1,9 @@
 import express from "express";
 import fileUpload from "express-fileupload";
 import cors from "cors";
-import mysql2 from "mysql2";
 import mongoose from "mongoose";
 import Upload from "./models/Upload.js";
-import { data, cities } from "./data.js";
+import { products, cities } from "./data.js";
 const __dirname = "D:\\etc\\p2p commerce";
 
 //Middlewares
@@ -23,9 +22,17 @@ app.use(fileUpload());
 // });
 
 // const db = mongoose.connection;
+app.get("/api/products/:id", (req, res) => {
+    const product = products.find((x) => x._id == req.params.id);
+    if (product) {
+        res.send(product);
+    } else {
+        res.status(404).send({ message: `Product Not Found-${req.params.id}` });
+    }
+});
 
 app.get("/api/products", (req, res) => {
-    res.send({ products: data, cities: cities });
+    res.send({ products: products, cities: cities });
 });
 // app.post("/", async(request, response) => {
 //     const upload = new Upload(request.body);

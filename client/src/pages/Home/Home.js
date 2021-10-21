@@ -1,36 +1,37 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowBackIos, ArrowForwardIos } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { ProductList } from "../../Redux/Actions/ProductActions.js";
 import Loading from "../../Components/Loading/Loading";
 import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import "./Home.css";
 
 function Home() {
+  //Some function to help me destructure data object
+  const getPropValue = (obj, key) =>
+    key.split(".").reduce((o, x) => (o == undefined ? o : o[x]), obj);
+
+  //Redux stuff
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, data } = productList;
+
+  //Destructure data object
+  const products = getPropValue(data, "products");
+  const cities = getPropValue(data, "cities");
+
+  //Set unique categories
   let arr = [];
   let uniqueCategories = [];
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get("/api/products");
-        setData(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-  if (data.products) {
-    data.products.map((val) => arr.push(val.category));
+  if (products) {
+    products.map((val) => arr.push(val.category));
     uniqueCategories = eliminateDuplicates(arr);
   }
+  useEffect(() => {
+    dispatch(ProductList());
+  }, [dispatch]);
   return (
     <>
       {loading ? (
@@ -41,18 +42,18 @@ function Home() {
         <div>
           <div>
             {uniqueCategories.map((uniqueCategory) => (
-              <Category data={data.products} category={uniqueCategory} />
+              <Category data={products} category={uniqueCategory} />
             ))}
           </div>
           <div className="cities">
             <h1 className="cities__heading"> Major Cities </h1>
             <div className="cities__row">
-              {data.cities ? (
-                data.cities.map((city) => (
+              {cities ? (
+                cities.map((city) => (
                   <Cities image={city.image} key={city.key} />
                 ))
               ) : (
-                <div></div>
+                <div> </div>
               )}
             </div>
           </div>
@@ -131,14 +132,15 @@ function Card({ id, image, name, price }) {
             Price: {price}
             Rs
           </div>
-          <div className="content__button">
-            <Link to={`/products/${id}`}> View </Link>
-          </div>
+          <Link to={`/products/${id}`}>
+            <div className="content__button"> View </div>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
+
 function eliminateDuplicates(arr) {
   var i,
     len = arr.length,
