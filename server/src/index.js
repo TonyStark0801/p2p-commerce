@@ -1,12 +1,13 @@
 import express from "express";
 import env from "dotenv";
 import mongoose from "mongoose";
-import router from "../src/routes/user.js";
+import router from "./routes/auth.js";
 const url = `mongodb+srv://nsa:nsa%402021@cluster0.dbkqe.mongodb.net/p2p_ecommerce?retryWrites=true&w=majority`;
 //const url = "mongodb://localhost/p2p_ecommerce";
 env.config();
 
 //Routes
+import authRoutes from './routes/auth.js';
 
 //Database connection
 mongoose
@@ -19,7 +20,7 @@ mongoose
 //Middlewares
 const app = express();
 app.use(express.json());
-app.use("/api", router);
+app.use("/api", authRoutes);
 
 //Listen
 app.listen(process.env.PORT, () => {
