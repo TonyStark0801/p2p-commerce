@@ -10,11 +10,12 @@ function Products(props) {
   const productId = props.match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-
   useEffect(() => {
     dispatch(ProductDetails(productId));
   }, [dispatch, productId]);
-
+  const addToCartHandler = () => {
+    props.history.push(`/cart/${productId}`);
+  };
   return (
     <>
       {loading ? (
@@ -69,7 +70,12 @@ function Products(props) {
               </p>
               <div className="card__buttons">
                 <button className="buttons__buy-now"> Buy Now </button>
-                <button className="buttons__add-to-cart"> Add to Cart </button>
+                <button
+                  onClick={addToCartHandler}
+                  className="buttons__add-to-cart"
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           </div>

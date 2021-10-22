@@ -119,24 +119,24 @@ function Category({ data, category }) {
   );
 }
 
-function Card({ id, image, name, price }) {
+function Card({ id, name, image, price }) {
   return (
     <div className="product-card-bg">
-      <div className="individual-card">
-        <a href={`/product/${id}`}>
+      <Link to={`/products/${id}`}>
+        <div className="individual-card">
           <img src={image} className="individual-card__img" />
-        </a>
-        <h3 className="individual-card__name"> {name} </h3>
-        <div className="individual-card__content">
-          <div className="content__price">
-            Price: {price}
-            Rs
+          <h3 className="individual-card__name"> {name} </h3>
+          <div className="individual-card__content">
+            <div className="content__price">
+              Price: {price}
+              Rs
+            </div>
+            <Link to={`/cart/${id}`}>
+              <div className="content__button">Add to Cart</div>
+            </Link>
           </div>
-          <Link to={`/products/${id}`}>
-            <div className="content__button"> View </div>
-          </Link>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Products from "./pages/Products/Products.js";
 import Header from "./Components/Header/Header.js";
 import Footer from "./Components/Footer/Footer.js";
 import Upload from "./pages/Upload/Upload.js";
+import Cart from "./pages/Cart/Cart.js";
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,8 +19,8 @@ function App() {
         <Header />
         <Route path="/" exact component={Home} />
         <Route path="/products/:id" exact component={Products} />
-        <Route path="/upload" exact component={Upload} />
-        <Footer />
+        <Route path="/cart/:id?" exact component={Cart} />
+        <Route path="/upload" exact component={Upload} /> <Footer />
       </div>
     </BrowserRouter>
   );
