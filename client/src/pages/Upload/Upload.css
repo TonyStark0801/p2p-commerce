@@ -24,7 +24,7 @@ form {
     align-items: center;
 }
 
-.text-input {
+.xyz {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -69,15 +69,6 @@ form {
     outline: none;
     border-bottom: solid 2.2px var(--themeColor);
     padding: 0 0 0.875em 0;
-}
-
-.dropdown__input {
-    background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png") no-repeat right;
-    outline: none;
-}
-
-.dropdown__input::-ms-expand {
-    display: none;
 }
 
 .name {

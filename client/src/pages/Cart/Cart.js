@@ -17,7 +17,6 @@ function Cart(props) {
       dispatch(addToCart(productId));
     }
   }, [dispatch, productId]);
-
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const removeAll = () => {

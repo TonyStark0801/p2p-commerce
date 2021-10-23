@@ -6,10 +6,16 @@ import ErrorMessage from "../../Components/ErrorMessage/ErrorMessage";
 import "./Products.css";
 
 function Products(props) {
+  //Some function to help me destructure data object
+  const getPropValue = (obj, key) =>
+    key.split(".").reduce((o, x) => (o == undefined ? o : o[x]), obj);
+
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  const currentProduct = getPropValue(product, "data.product");
+  console.log(currentProduct);
   useEffect(() => {
     dispatch(ProductDetails(productId));
   }, [dispatch, productId]);
@@ -19,20 +25,22 @@ function Products(props) {
   return (
     <>
       {loading ? (
-        <Loading></Loading>
+        <Loading> </Loading>
       ) : error ? (
-        <ErrorMessage variant="danger">{error}</ErrorMessage>
+        <ErrorMessage variant="danger"> {error} </ErrorMessage>
       ) : (
         <div className="container">
           <div className="container__left-column">
             <img
               className="left-column__image"
-              src={product.image}
-              alt={product.name}
+              src={currentProduct.image}
+              alt={currentProduct.name}
             />
           </div>
           <div className="container__middle-column">
-            <p className="middle-column__product-heading"> {product.name} </p>
+            <p className="middle-column__product-heading">
+              {currentProduct.name}
+            </p>
             <div className="middle-column__product-rating">
               <span className="fa fa-star checked"> </span>
               <span className="fa fa-star checked"> </span>
@@ -43,7 +51,7 @@ function Products(props) {
             <p className="middle-column__product-price">
               <small className="product-price__small"> Price: </small>
               <strong className="product-price__strong">
-                {product.price}
+                {currentProduct.price}
                 RS
               </strong>
             </p>
@@ -60,7 +68,7 @@ function Products(props) {
               <p className="card__total-price">
                 <small className="total-price__small"> Total price: </small>
                 <strong className="total-price__strong">
-                  {product.price}
+                  {currentProduct.price}
                   Rs
                 </strong>
               </p>

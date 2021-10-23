@@ -84,6 +84,7 @@ header {
     font-weight: 600;
     font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     cursor: pointer;
+    padding-right: 30px;
 }
 
 .header__cart:hover {
@@ -118,7 +119,58 @@ header {
     background-color: #f02020;
     color: #ffffff;
     border-radius: 50%;
-    padding: 0.1rem 0.5rem;
+    padding: 0.2rem 0.4rem;
     font-size: 0.8rem;
     margin-left: 0.2rem;
+}
+
+.header__username {
+    display: flex;
+    flex-direction: row;
+    padding-left: 30px;
+    text-transform: capitalize;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    cursor: pointer;
+}
+
+.header__username:hover {
+    color: rgb(209, 209, 209);
+}
+
+.fa-user {
+    padding-right: 5px;
+    padding-top: 3px;
+}
+
+.header__upload {
+    display: flex;
+    flex-direction: row;
+    text-transform: capitalize;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    cursor: pointer;
+}
+
+.header__upload:hover {
+    color: rgb(209, 209, 209);
+}
+
+.header__register {
+    display: flex;
+    flex-direction: row;
+    text-transform: capitalize;
+    font-size: 1em;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-family: "SF Pro Text", "Myriad Set Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Icons", "Apple Legacy Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    cursor: pointer;
+}
+
+.header__register:hover {
+    color: rgb(209, 209, 209);
 }

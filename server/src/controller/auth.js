@@ -1,68 +1,56 @@
-import User from '../models/auth.js';
-import jwt from 'jsonwebtoken';
+import User from "../models/auth.js";
+import jwt from "jsonwebtoken";
 
 export const signup = (req, res) => {
-    User.findOne({ email: req.body.email })
-    .exec((error, user) => {
-        if(user) return res.status(400).json({
-            message: 'user already registered'
-        });
+    User.findOne({ email: req.body.email }).exec((error, user) => {
+        if (user)
+            return res.status(400).json({
+                message: "user already registered",
+            });
 
-        const {
-            firstName,
+        const { username, email, password } = req.body;
+        const _user = new User({
+            username,
             email,
-            password
-        } = req.body;
-        const _user = new User({ 
-            firstName,       
-            email, 
             password,
-            username: Math.random().toString(),
-            role: 'user',
-            default: 'user'
         });
 
         _user.save((error, data) => {
-            if(error){
+            if (error) {
                 return res.status(400).json({
-                    message: 'Something went wrong'
+                    message: "Something went wrong",
                 });
             }
 
-            if(data){
+            if (data) {
                 return res.status(201).json({
-                    message: 'user created Succesfuly'
-                })
+                    message: "user created Succesfuly",
+                });
             }
         });
-
-
-
     });
-}
+};
 
 export const signin = (req, res) => {
-    User.findOne({ email: req.body.email })
-    .exec((error, user) => {
-        if(error) return res.status(400).json({ error });
-        if(user){
-
-            if(user.authenticate(req.body.password) && user.role === 'user'){
-                const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET, { expiresIn: '1h' });
-                const { _id, firstName, lastName, email, role, fullName } = user;
+    User.findOne({ email: req.body.email }).exec((error, user) => {
+        if (error) return res.status(400).json({ error });
+        if (user) {
+            if (user.authenticate(req.body.password) && user.role === "user") {
+                const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+                    expiresIn: "1h",
+                });
+                const { _id, username, email, role } = user;
                 res.status(200).json({
                     token,
-                    user: {_id, firstName, lastName, email, role, fullName}
+                    user: { _id, username, email, role },
                 });
-            }else{
+            } else {
                 return res.status(400).json({
-                    message: 'Invalid creds'
-                })
+                    message: "Invalid creds",
+                });
             }
-
-        }else{
-            return res.status(400).json({message: 'Something went wrong'});
+        } else {
+            return res.status(400).json({ message: "Something went wrong" });
         }
     });
-}
-
+};

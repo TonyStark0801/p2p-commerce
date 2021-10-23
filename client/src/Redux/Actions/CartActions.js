@@ -6,15 +6,20 @@ import {
 } from "../Constants/CartConstants.js";
 
 export const addToCart = (productId) => async(dispatch, getState) => {
-    const { data } = await Axios.get(`/api/products/${productId}`);
+    const data = await Axios.get(
+        `http://localhost:5000/api/products/${productId}`
+    );
+    const getPropValue = (obj, key) =>
+        key.split(".").reduce((o, x) => (o == undefined ? o : o[x]), obj);
+    const product = getPropValue(data, "data.product");
     dispatch({
         type: CART_ADD_ITEM,
         payload: {
-            name: data.name,
-            image: data.image,
-            price: data.price,
-            category: data.category,
-            product: data._id,
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            category: product.category,
+            product: product._id,
         },
     });
     localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));

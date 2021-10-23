@@ -19,14 +19,13 @@ function Home() {
   const { loading, error, data } = productList;
 
   //Destructure data object
-  const products = getPropValue(data, "products");
-  const cities = getPropValue(data, "cities");
+  const allProducts = getPropValue(data, "data");
 
   //Set unique categories
   let arr = [];
   let uniqueCategories = [];
-  if (products) {
-    products.map((val) => arr.push(val.category));
+  if (allProducts) {
+    allProducts.map((val) => arr.push(val.category));
     uniqueCategories = eliminateDuplicates(arr);
   }
   useEffect(() => {
@@ -34,6 +33,7 @@ function Home() {
   }, [dispatch]);
   return (
     <>
+      {" "}
       {loading ? (
         <Loading />
       ) : error ? (
@@ -41,24 +41,25 @@ function Home() {
       ) : (
         <div>
           <div>
+            {" "}
             {uniqueCategories.map((uniqueCategory) => (
-              <Category data={products} category={uniqueCategory} />
-            ))}
-          </div>
-          <div className="cities">
-            <h1 className="cities__heading"> Major Cities </h1>
-            <div className="cities__row">
-              {cities ? (
-                cities.map((city) => (
-                  <Cities image={city.image} key={city.key} />
-                ))
-              ) : (
-                <div> </div>
-              )}
-            </div>
-          </div>
+              <Category data={allProducts} category={uniqueCategory} />
+            ))}{" "}
+          </div>{" "}
+          {/* <div className="cities">
+                                                    <h1 className="cities__heading"> Major Cities </h1>
+                                                    <div className="cities__row">
+                                                      {cities ? (
+                                                        cities.map((city) => (
+                                                          <Cities image={city.image} key={city.key} />
+                                                        ))
+                                                      ) : (
+                                                        <div> </div>
+                                                      )}
+                                                    </div>
+                                                  </div> */}{" "}
         </div>
-      )}
+      )}{" "}
     </>
   );
 }
@@ -102,10 +103,11 @@ function Category({ data, category }) {
   return (
     <div className="carousel-container">
       <div className="product-category">
-        <div className="product-category__heading"> {category} </div>
-        <div className="product-category__more"> More </div>
-      </div>
+        <div className="product-category__heading"> {category} </div>{" "}
+        <div className="product-category__more"> More </div>{" "}
+      </div>{" "}
       <Slider {...settings}>
+        {" "}
         {products.map((product) => (
           <Card
             id={product._id}
@@ -113,8 +115,8 @@ function Category({ data, category }) {
             price={product.price}
             image={product.image}
           />
-        ))}
-      </Slider>
+        ))}{" "}
+      </Slider>{" "}
     </div>
   );
 }
@@ -125,18 +127,18 @@ function Card({ id, name, image, price }) {
       <Link to={`/products/${id}`}>
         <div className="individual-card">
           <img src={image} className="individual-card__img" />
-          <h3 className="individual-card__name"> {name} </h3>
+          <h3 className="individual-card__name"> {name} </h3>{" "}
           <div className="individual-card__content">
             <div className="content__price">
               Price: {price}
-              Rs
-            </div>
+              Rs{" "}
+            </div>{" "}
             <Link to={`/cart/${id}`}>
-              <div className="content__button">Add to Cart</div>
-            </Link>
-          </div>
-        </div>
-      </Link>
+              <div className="content__button"> Add to Cart </div>{" "}
+            </Link>{" "}
+          </div>{" "}
+        </div>{" "}
+      </Link>{" "}
     </div>
   );
 }

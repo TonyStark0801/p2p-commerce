@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+:root {
+    --themeColor: #001c38;
+    --buttonColor: linear-gradient(#64b2ee, #117dd4);
+    --buttonOnHoverColor: linear-gradient(#3a80b6, #1f9aff);
+    --button-border: #07c;
+}
+
+.login__container {
+    border: solid 3px var(--themeColor);
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    height: auto;
+    margin: 60px auto;
+}
+
+.login__heading {
+    color: var(--themeColor);
+    margin: 20px 0;
+    width: 100%;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.login__underline {
+    border-bottom: solid 2px var(--themeColor);
+    margin: -0.512em auto;
+    width: 80px;
+}
+
+.login__form {
+    padding: 35px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-input {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.email__input,
+.pass__input,
+.username__input {
+    background: none;
+    border: none;
+    border-bottom: solid 2px var(--themeColor);
+    color: var(--themeColor);
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0em 0 1.875em 0;
+    padding: 0 0 0.875em 0;
+    width: 100%;
+}
+
+.email__input:focus,
+.pass__input:focus,
+.username__input:focus {
+    outline: none;
+    border-bottom: solid 2.2px var(--themeColor);
+    padding: 0 0 0.875em 0;
+}
+
+.email {
+    width: 70%;
+}
+
+.pass {
+    width: 70%;
+}
+
+.username {
+    width: 70%;
+}
+
+.submit {
+    margin-top: 35px;
+}
+
+.form_button {
+    background: none;
+    border: solid 2px var(--themeColor);
+    color: var(--themeColor);
+    cursor: pointer;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 0.875em;
+    font-weight: bold;
+    padding: 20px 35px;
+}
+
+.form_button:hover {
+    background: var(--themeColor);
+    color: #f2f3eb;
+}
