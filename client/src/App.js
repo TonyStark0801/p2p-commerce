@@ -24,7 +24,8 @@ function App() {
         <Route path="/register" exact component={Register} />
         <Route path="/products/:id" exact component={Products} />
         <Route path="/cart/:id?" exact component={Cart} />
-        <Route path="/upload" exact component={Upload} /> <Footer />
+        <Route path="/upload" exact component={Upload} /> 
+        <Footer />
       </div>
     </BrowserRouter>
   );
