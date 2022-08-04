@@ -12,7 +12,7 @@ function Register(props) {
       email: email,
       password: password,
     });
-    alert(" User Registered Successfully");
+    alert("User Registered Successfully");
     props.history.push("/login");
   }
   return (
