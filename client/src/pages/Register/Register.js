@@ -7,7 +7,7 @@ function Register(props) {
   const [password, setPassword] = useState("");
   function submitHandler(e) {
     e.preventDefault();
-    axios.post("http://localhost:5000/api/signup", {
+    axios.post("https://p2p-comm-server.herokuapp.com/api/signup", {
       username: username,
       email: email,
       password: password,
