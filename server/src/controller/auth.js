@@ -5,7 +5,7 @@ export const signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (user)
       return res.status(400).json({
-        message: "user already registered",
+        message: "User already registered",
       });
 
     const { username, email, password } = req.body;
@@ -24,7 +24,7 @@ export const signup = (req, res) => {
 
       if (data) {
         return res.status(201).json({
-          message: "user created Succesfuly",
+          message: "User created Succesfuly",
         });
       }
     });
@@ -46,7 +46,7 @@ export const signin = (req, res) => {
         });
       } else {
         return res.status(400).json({
-          message: "Invalid creds",
+          message: "Invalid credentials",
         });
       }
     } else {
