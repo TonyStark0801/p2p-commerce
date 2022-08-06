@@ -25,11 +25,15 @@ function Upload() {
     formData.append("category", category);
 
     try {
-      const res = await axios.post("http://localhost:5000/upload", formData, {
-        headers: {
-          "Content-type": "multipart/form-data",
-        },
-      });
+      const res = await axios.post(
+        "https://p2p-comm-server.herokuapp.com/api/upload",
+        formData,
+        {
+          headers: {
+            "Content-type": "multipart/form-data",
+          },
+        }
+      );
       const { name, price, filePath } = res.data;
       console.log(uploadedFile);
       setUploadedFile({ name, price, filePath });
